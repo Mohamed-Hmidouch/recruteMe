@@ -1,18 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-register',
-  standalone: true, // Mark as standalone
-  imports: [ReactiveFormsModule, CommonModule], // Add ReactiveFormsModule and CommonModule here
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register.html',
-  styleUrl: './register.sass',
+  styleUrls: ['./register.sass'],
 })
-export class Register implements OnInit {
+export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  registerError = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -24,12 +31,13 @@ export class Register implements OnInit {
   }
 
   onSubmit(): void {
+    this.registerError = false;
     if (this.registerForm.valid) {
-      console.log('Form Submitted!', this.registerForm.value);
-      // Here you would typically call an authentication service
+      this.authService.register(this.registerForm.value).subscribe({
+        next: () => this.router.navigate(['/login']),
+        error: () => this.registerError = true
+      });
     } else {
-      console.log('Form is invalid');
-      // Mark all fields as touched to display validation messages
       this.registerForm.markAllAsTouched();
     }
   }

@@ -1,1 +1,65 @@
-<p>favorites works!</p>
+<div class="min-h-[calc(100vh-200px)] py-12 px-6 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">My Favorites</h1>
+          <p class="text-gray-500">Jobs you've saved for later</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorites Grid -->
+    <div *ngIf="favorites$ | async as favorites">
+      <div *ngIf="favorites.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let favorite of favorites" class="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-emerald-200 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/10">
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-3 line-clamp-2">{{ favorite.title || favorite.name }}</h3>
+            <div class="flex items-center gap-2 text-sm text-gray-500 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              <span>{{ favorite.company?.name || favorite.company_name || 'Company' }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              </svg>
+              <span>{{ favorite.locations?.[0]?.name || favorite.location || 'Remote' }}</span>
+            </div>
+          </div>
+          <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex gap-3">
+            <a [href]="favorite.refs?.landing_page || favorite.url" target="_blank" rel="noopener noreferrer"
+               class="flex-1 text-center px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-300">
+              View Job
+            </a>
+            <button (click)="removeFavorite(favorite.id)" 
+                    class="px-4 py-2.5 bg-red-50 text-red-600 font-semibold rounded-xl border border-red-200 hover:bg-red-100 transition-all duration-300">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="favorites.length === 0" class="text-center py-20">
+        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-100 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">No Favorites Yet</h3>
+        <p class="text-gray-500 mb-6">Start exploring jobs and save your favorites here</p>
+        <a routerLink="/" class="inline-flex px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-300">
+          Browse Jobs
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

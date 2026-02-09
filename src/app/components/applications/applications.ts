@@ -1,11 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ApplicationService } from '../../services/application.service';
+import { Observable } from 'rxjs';
+import { Application, ApplicationStatus } from '../../models/application.model';
 
 @Component({
   selector: 'app-applications',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './applications.html',
-  styleUrl: './applications.sass',
+  styleUrls: ['./applications.sass']
 })
-export class Applications {
+export class ApplicationsComponent implements OnInit {
+  applications$!: Observable<Application[]>;
 
+  constructor(private applicationService: ApplicationService) { }
+
+  ngOnInit(): void {
+    this.applications$ = this.applicationService.getApplications();
+  }
+
+  removeApplication(applicationId: number): void {
+    this.applicationService.removeApplication(applicationId).subscribe(() => {
+      this.applications$ = this.applicationService.getApplications();
+    });
+  }
+
+  updateStatus(application: Application, status: ApplicationStatus): void {
+    const updatedApplication = { ...application, status };
+    this.applicationService.updateApplication(updatedApplication).subscribe(() => {
+      this.applications$ = this.applicationService.getApplications();
+    });
+  }
 }

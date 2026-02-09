@@ -1,18 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
-  standalone: true, // Mark as standalone
-  imports: [ReactiveFormsModule, CommonModule], // Add ReactiveFormsModule and CommonModule here
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.html',
-  styleUrl: './login.sass',
+  styleUrls: ['./login.sass'],
 })
-export class Login implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  loginError = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -22,12 +29,16 @@ export class Login implements OnInit {
   }
 
   onSubmit(): void {
+    this.loginError = false;
     if (this.loginForm.valid) {
-      console.log('Form Submitted!', this.loginForm.value);
-      // Here you would typically call an authentication service
+      this.authService.login(this.loginForm.value).subscribe(user => {
+        if (user) {
+          this.router.navigate(['/']);
+        } else {
+          this.loginError = true;
+        }
+      });
     } else {
-      console.log('Form is invalid');
-      // Mark all fields as touched to display validation messages
       this.loginForm.markAllAsTouched();
     }
   }

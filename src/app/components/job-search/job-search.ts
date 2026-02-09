@@ -1,11 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LucideAngularModule } from 'lucide-angular';
+
+export interface SearchCriteria {
+  keywords: string;
+  location: string;
+}
 
 @Component({
   selector: 'app-job-search',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
   templateUrl: './job-search.html',
-  styleUrl: './job-search.sass',
+  styleUrls: ['./job-search.sass'],
 })
-export class JobSearch {
+export class JobSearchComponent implements OnInit {
+  @Output() search = new EventEmitter<SearchCriteria>();
+  searchForm!: FormGroup;
 
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.searchForm = this.fb.group({
+      keywords: [''],
+      location: [''],
+    });
+  }
+
+  onSearch(): void {
+    this.search.emit(this.searchForm.value);
+  }
 }

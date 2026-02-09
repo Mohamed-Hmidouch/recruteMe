@@ -1,1 +1,69 @@
-<p>home works!</p>
+<!-- Hero Section -->
+<section class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-4xl mx-auto">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-md border border-emerald-100 mb-8 animate-fade-in-up">
+        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+        <span class="text-sm text-gray-600">Thousands of opportunities waiting for you</span>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight animate-fade-in-up" style="animation-delay: 0.1s;">
+        <span class="text-gray-900">Find Your</span>
+        <br />
+        <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Dream Career</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+        Discover curated job opportunities from top companies worldwide. 
+        Your next big career move starts here.
+      </p>
+
+      <!-- Search Section -->
+      <div class="mt-10 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <app-job-search (search)="onSearch($event)"></app-job-search>
+      </div>
+
+      <!-- Stats -->
+      <div class="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto animate-fade-in-up" style="animation-delay: 0.4s;">
+        <div class="text-center">
+          <div class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">10K+</div>
+          <div class="text-sm text-gray-500 mt-1">Active Jobs</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">5K+</div>
+          <div class="text-sm text-gray-500 mt-1">Companies</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">50K+</div>
+          <div class="text-sm text-gray-500 mt-1">Job Seekers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Job Listings Section -->
+<section class="py-16 px-6 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">Latest Opportunities</h2>
+        <p class="text-gray-600 mt-2">Explore the newest positions from leading companies</p>
+      </div>
+    </div>
+
+    <!-- Job List -->
+    <app-job-list [searchCriteria]="searchCriteria"></app-job-list>
+  </div>
+</section>

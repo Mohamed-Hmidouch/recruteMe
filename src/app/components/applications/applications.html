@@ -1,1 +1,99 @@
-<p>applications works!</p>
+<div class="min-h-[calc(100vh-200px)] py-12 px-6 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">My Applications</h1>
+          <p class="text-gray-500">Track your job applications</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Applications List -->
+    <div *ngIf="applications$ | async as applications">
+      <div *ngIf="applications.length > 0" class="space-y-4">
+        <div *ngFor="let app of applications" class="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-emerald-200 transition-all duration-300 hover:shadow-lg">
+          <div class="p-6">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+              <!-- Job Info -->
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ app.title || app.name }}</h3>
+                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <span>{{ app.company?.name || app.company_name || app.company || 'Company' }}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    <span>{{ app.locations?.[0]?.name || app.location || 'Remote' }}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Applied: {{ app.dateAdded | date:'mediumDate' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Status Badge -->
+              <div>
+                <span [class]="'inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold ' + 
+                  (app.status === 'Accepté' ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' : 
+                   app.status === 'Refusé' ? 'bg-red-100 text-red-700 border border-red-200' : 
+                   'bg-amber-100 text-amber-700 border border-amber-200')">
+                  {{ app.status === 'en_attente' ? 'Pending' : app.status }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div *ngIf="app.notes" class="mt-4 p-4 bg-gray-50 rounded-xl">
+              <p class="text-sm text-gray-600">{{ app.notes }}</p>
+            </div>
+          </div>
+
+          <!-- Actions Footer -->
+          <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex flex-wrap gap-3">
+            <button (click)="updateStatus(app, 'Accepté')" 
+                    class="px-4 py-2 bg-emerald-100 text-emerald-700 font-semibold rounded-xl border border-emerald-200 hover:bg-emerald-200 transition-all duration-300">
+              ✓ Accepted
+            </button>
+            <button (click)="updateStatus(app, 'Refusé')" 
+                    class="px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-xl border border-red-200 hover:bg-red-200 transition-all duration-300">
+              ✕ Rejected
+            </button>
+            <button (click)="removeApplication(app.id)" 
+                    class="px-4 py-2 bg-gray-100 text-gray-600 font-semibold rounded-xl border border-gray-200 hover:bg-gray-200 transition-all duration-300 ml-auto">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="applications.length === 0" class="text-center py-20">
+        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-100 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">No Applications Yet</h3>
+        <p class="text-gray-500 mb-6">Start tracking your job applications here</p>
+        <a routerLink="/" class="inline-flex px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-300">
+          Browse Jobs
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

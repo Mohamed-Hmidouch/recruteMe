@@ -1,5 +1,13 @@
 {
-  "users": [],
+  "users": [
+    {
+      "name": "med",
+      "firstName": "Zip",
+      "email": "ffa54202@gmail.com",
+      "password": "med1234",
+      "id": 1
+    }
+  ],
   "favoritesOffers": [],
   "applications": []
 }
