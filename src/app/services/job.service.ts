@@ -25,7 +25,9 @@ export class JobService {
       .get<TheMuseResponse>(url)
       .pipe(
         map((res) => ({
-          results: res.results,
+          results: res.results.sort((a, b) => 
+            new Date(b.publication_date).getTime() - new Date(a.publication_date).getTime()
+          ),
           page: res.page,
           page_count: res.page_count,
           total: res.total,
