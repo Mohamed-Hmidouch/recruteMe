@@ -9,7 +9,7 @@ export const addFavorite = createAction(
 
 export const removeFavorite = createAction(
   '[Favorites] Remove Favorite',
-  props<{ jobId: string }>()
+  props<{ jobId: number }>()
 );
 
 export const loadFavorites = createAction(

@@ -35,9 +35,9 @@ export class JobListComponent implements OnInit {
   loadJobs(keywords?: string, location?: string) {
     this.loading.set(true);
     this.error.set(null);
-    this.jobService.getJobs(1, keywords, location).subscribe({
-      next: (jobs) => {
-        this.jobs.set(jobs);
+    this.jobService.getJobs(1, 20, keywords, location).subscribe({
+      next: (response) => {
+        this.jobs.set(response.results);
         this.loading.set(false);
       },
       error: (err) => {

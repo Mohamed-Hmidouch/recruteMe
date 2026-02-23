@@ -27,7 +27,7 @@ export const favoritesReducer = createReducer(
   })),
   on(FavoritesActions.removeFavorite, (state, { jobId }) => ({
     ...state,
-    favorites: state.favorites.filter(fav => fav.jobId?.toString() !== jobId)
+    favorites: state.favorites.filter(fav => fav.jobId !== jobId)
   })),
   on(FavoritesActions.loadFavoritesSuccess, (state, { favorites }) => ({
     ...state,

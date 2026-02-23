@@ -31,7 +31,7 @@ export class FavoritesService {
     return this.http.post<Favorite>(this.apiUrl, favorite);
   }
 
-  removeFavoriteByJobId(jobId: string): Observable<void> {
+  removeFavoriteByJobId(jobId: number): Observable<void> {
     const user = this.authService.getCurrentUser();
     // First find the favorite by jobId and userId, then delete it
     return this.http.get<Favorite[]>(`${this.apiUrl}?userId=${user?.id}&jobId=${jobId}`).pipe(

@@ -1,8 +1,8 @@
-<div class="min-h-[calc(100vh-200px)] flex items-center justify-center px-6 py-12 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+<div class="min-h-[calc(100vh-200px)] flex items-center justify-center px-6 py-12 bg-gradient-to-br from-amber-50 via-white to-amber-50">
   <div class="w-full max-w-md">
     <!-- Header -->
     <div class="text-center mb-10">
-      <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30">
+      <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-500/30">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
         </svg>
@@ -12,7 +12,7 @@
     </div>
 
     <!-- Form Card -->
-    <div class="bg-white rounded-2xl shadow-xl border border-emerald-100 p-8">
+    <div class="bg-white rounded-2xl shadow-xl border border-amber-100 p-8">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
         <!-- Email Field -->
         <div>
@@ -22,7 +22,7 @@
             type="email"
             formControlName="email"
             placeholder="you@example.com"
-            class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 text-gray-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition-all duration-300"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 text-gray-900 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none transition-all duration-300"
           />
           <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
             <p *ngIf="loginForm.get('email')?.errors?.['required']" class="text-red-500 text-sm mt-2">Email is required</p>
@@ -38,7 +38,7 @@
             type="password"
             formControlName="password"
             placeholder="••••••••"
-            class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 text-gray-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition-all duration-300"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 text-gray-900 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 focus:outline-none transition-all duration-300"
           />
           <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
             <p *ngIf="loginForm.get('password')?.errors?.['required']" class="text-red-500 text-sm mt-2">Password is required</p>
@@ -60,7 +60,7 @@
         <button
           type="submit"
           [disabled]="loginForm.invalid"
-          class="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          class="w-full py-4 bg-gradient-to-r from-amber-500 to-amber-700 text-white font-semibold rounded-xl shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
           Sign In
         </button>
@@ -70,7 +70,7 @@
       <div class="mt-8 pt-6 border-t border-gray-100 text-center">
         <p class="text-gray-500">
           Don't have an account?
-          <a routerLink="/register" class="text-emerald-600 hover:text-emerald-700 font-medium transition-colors">Create one</a>
+          <a routerLink="/register" class="text-amber-600 hover:text-amber-700 font-medium transition-colors">Create one</a>
         </p>
       </div>
     </div>

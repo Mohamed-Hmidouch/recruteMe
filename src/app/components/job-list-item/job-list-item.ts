@@ -50,14 +50,14 @@ export class JobListItemComponent implements OnInit {
     this.isLoggedIn.set(this.authService.isLoggedIn());
     if (this.isLoggedIn()) {
       this.store
-        .select(selectIsFavorite(this.job.id.toString()))
+        .select(selectIsFavorite(this.job.id))
         .subscribe((isFav) => this.isFavorite.set(isFav));
     }
   }
 
   toggleFavorite(): void {
     if (this.isFavorite()) {
-      this.store.dispatch(removeFavorite({ jobId: this.job.id.toString() }));
+      this.store.dispatch(removeFavorite({ jobId: this.job.id }));
     } else {
       this.store.dispatch(addFavorite({ job: this.job }));
     }

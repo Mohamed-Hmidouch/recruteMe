@@ -51,6 +51,8 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    console.log("1. Guard check")
+      console.log('isLoggedIn check in service:', this.loggedInUser);
     return !!this.loggedInUser;
   }
 

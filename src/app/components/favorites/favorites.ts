@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { JobListItemComponent } from '../job-list-item/job-list-item';
 import * as FavoritesActions from '../../store/actions/favorites.actions';
 import { selectAllFavorites } from '../../store/selectors/favorites.selectors';
 import { AppState } from '../../store';
@@ -10,7 +10,7 @@ import { AppState } from '../../store';
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CommonModule, JobListItemComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './favorites.html',
   styleUrls: ['./favorites.sass']
 })
@@ -25,7 +25,7 @@ export class FavoritesComponent implements OnInit {
     this.store.dispatch(FavoritesActions.loadFavorites());
   }
 
-  removeFavorite(jobId: any): void {
+  removeFavorite(jobId: number): void {
     this.store.dispatch(FavoritesActions.removeFavorite({ jobId }));
   }
 }

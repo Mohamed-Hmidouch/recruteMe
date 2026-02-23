@@ -14,7 +14,7 @@ export const selectFavoritesError = createSelector(
   (state: fromFavorites.State) => state.error
 );
 
-export const selectIsFavorite = (jobId: string) => createSelector(
+export const selectIsFavorite = (jobId: number) => createSelector(
   selectAllFavorites,
-  (favorites: Favorite[]) => favorites.some(fav => fav.jobId?.toString() === jobId)
+  (favorites: Favorite[]) => favorites.some(fav => fav.jobId === jobId)
 );
