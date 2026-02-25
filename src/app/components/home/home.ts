@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobSearchComponent, SearchCriteria } from '../job-search/job-search';
 import { JobListComponent } from '../job-list/job-list';
@@ -11,9 +11,9 @@ import { JobListComponent } from '../job-list/job-list';
   styleUrls: ['./home.sass'],
 })
 export class HomeComponent {
-  searchCriteria = signal<SearchCriteria>({ keywords: '', location: '' });
+  searchCriteria: SearchCriteria = { keywords: '', location: '' };
 
   onSearch(criteria: SearchCriteria): void {
-    this.searchCriteria.set(criteria);
+    this.searchCriteria = { ...criteria };
   }
 }

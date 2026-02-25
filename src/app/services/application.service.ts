@@ -42,4 +42,8 @@ export class ApplicationService {
   updateApplication(application: Application): Observable<Application> {
     return this.http.put<Application>(`${this.apiUrl}/${application.id}`, application);
   }
+
+  getApplicationsByUserId(userId: number): Observable<Application[]> {
+    return this.http.get<Application[]>(`${this.apiUrl}?userId=${userId}`);
+  }
 }

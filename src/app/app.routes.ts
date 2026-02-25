@@ -7,7 +7,6 @@ import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'search', component: JobSearchComponent },
@@ -26,5 +25,6 @@ export const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard]
   },
-  { path: '**', redirectTo: '' } // Wildcard route for a 404-like redirect to home
+  { path: '**', redirectTo: '' },
+  { path: '', component: HomeComponent }, // Wildcard route for a 404-like redirect to home
 ];
